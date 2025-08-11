@@ -211,7 +211,7 @@
        * schedules overlap, the rows get a red tint. It also supports
        * deletion of jobs.
        */
-function ScheduleTable({ jobs, onDelete, onRowClick }) {
+function ScheduleTable({ jobs, onDelete }) {
         // Helper: compute overlapping jobs by truck number
         const conflicts = React.useMemo(() => {
           const conflictsMap = {};
@@ -283,9 +283,7 @@ function ScheduleTable({ jobs, onDelete, onRowClick }) {
                           ? 'bg-red-100 border-b last:border-b-0'
                           : 'border-b last:border-b-0'
                       }
-                      onClick={() => {
-                        if (onRowClick) onRowClick(job);
-                      }}
+                      /* Row click removed */
                     >
                       <td className="px-4 py-2 text-sm">
                         {new Date(job.startTime).toLocaleString()}
@@ -326,8 +324,7 @@ function ScheduleTable({ jobs, onDelete, onRowClick }) {
         const [jobs, setJobs] = React.useState([]);
         const [loading, setLoading] = React.useState(true);
         const [filterDate, setFilterDate] = React.useState('');
-        // State for currently selected job (for showing details)
-        const [selectedJob, setSelectedJob] = React.useState(null);
+        // Selected job state removed
 
         // Fetch jobs on mount
         React.useEffect(() => {
@@ -392,10 +389,7 @@ function ScheduleTable({ jobs, onDelete, onRowClick }) {
           }
         }
 
-        // Handler when clicking a job row to display its details
-        function handleRowClick(job) {
-          setSelectedJob(job);
-        }
+        // Removed row click handler
 
         // Filter jobs by date. If filterDate is empty, show all.
         const displayedJobs = React.useMemo(() => {
@@ -438,35 +432,8 @@ function ScheduleTable({ jobs, onDelete, onRowClick }) {
                 <ScheduleTable
                   jobs={displayedJobs}
                   onDelete={handleDelete}
-                  onRowClick={handleRowClick}
                 />
-                {selectedJob && (
-                  <div className="mt-4 p-4 border rounded bg-gray-50">
-                    <h3 className="font-semibold mb-2">Selected Job Details</h3>
-                    <p className="text-sm">
-                      <strong>Start Time:</strong>{' '}
-                      {new Date(selectedJob.startTime).toLocaleString()}
-                    </p>
-                    <p className="text-sm">
-                      <strong>Duration:</strong> {selectedJob.duration}h
-                    </p>
-                    <p className="text-sm">
-                      <strong>Truck:</strong> {selectedJob.truckNumber}
-                    </p>
-                    <p className="text-sm">
-                      <strong>Driver:</strong> {selectedJob.driver}
-                    </p>
-                    <p className="text-sm">
-                      <strong>Origin:</strong> {selectedJob.origin}
-                    </p>
-                    <p className="text-sm">
-                      <strong>Destination:</strong> {selectedJob.destination}
-                    </p>
-                    <p className="text-sm">
-                      <strong>Description:</strong> {selectedJob.description}
-                    </p>
-                  </div>
-                )}
+                {/* removed selected job details */}
               </>
             )}
           </div>
