@@ -35,8 +35,10 @@
       // Set your Supabase project details here. If you haven't set up a Supabase
       // project yet, visit https://supabase.com and create one. Then replace
       // these constants with your project's URL and anon key.
-      const SUPABASE_URL = 'https://your-supabase-url.supabase.co';
-      const SUPABASE_ANON_KEY = 'your-anon-key';
+      // Brosnan Transport Supabase project configuration
+      // Replace these values if you create a new project.
+      const SUPABASE_URL = 'https://akyxnujtxcjnnihcqvyf.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFreXhudWp0eGNqbm5paGNxdnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4NzY2MzMsImV4cCI6MjA3MDQ1MjYzM30.cAu446Q0IJRwtbz8-53Ee3Bn5J7pjmVsnnjK0Ox6uLI';
 
       // Initialize Supabase client. Supabase global object comes from the CDN.
       const supabaseClient = supabase.createClient(
@@ -139,7 +141,7 @@
                 id="driver"
                 name="driver"
                 value={job.driver}
-  onChange={handleChange}
+                onChange={handleChange}
                 className="w-full border rounded p-2"
               />
             </div>
