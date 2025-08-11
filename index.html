@@ -1,448 +1,430 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brosnan Transport Scheduler</title>
     <!-- Tailwind via CDN for quick styling -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   </head>
   <body class="bg-gray-100 min-h-screen flex flex-col items-center py-6">
     <!-- Header with logo -->
     <div class="w-full max-w-5xl mx-auto relative">
       <h1 class="text-2xl font-bold mb-4">Brosnan Transport Scheduler</h1>
       <!-- Company logo positioned in the top right corner -->
-      <img src="data:image/jpeg;base64,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" class="absolute top-0 right-0 h-12" alt="Brosnan Transport Ltd logo" />
+      <img src="logo.jpg" class="absolute top-0 right-0 h-12" alt="Brosnan Transport Ltd logo" />
     </div>
     <!-- The root element React will mount into -->
     <div id="root" class="w-full max-w-5xl mx-auto"></div>
+<!-- React and other libraries via CDN -->
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"
+          crossorigin
+        ></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"
+          crossorigin
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
+          crossorigin
+        ></script>
 
-    <!-- React and other libraries via CDN -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"
-      crossorigin
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"
-      crossorigin
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
-      crossorigin
-    ></script>
+        <!-- Main application script -->
+        <script type="text/babel">
+          // Set your Supabase project details here. If you haven't set up a Supabase
+          // project yet, visit https://supabase.com and create one. Then replace
+          // these constants with your project's URL and anon key.
+          // Brosnan Transport Supabase project configuration
+          // Replace these values if you create a new project.
+          const SUPABASE_URL = 'https://akyxnujtxcjnnihcqvyf.supabase.co';
+          const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFreXhudWp0eGNqbm5paGNxdnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4NzY2MzMsImV4cCI6MjA3MDQ1MjYzM30.cAu446Q0IJRwtbz8-53Ee3Bn5J7pjmVsnnjK0Ox6uLI';
 
-    <!-- Main application script -->
-    <script type="text/babel">
-      // Set your Supabase project details here. If you haven't set up a Supabase
-      // project yet, visit https://supabase.com and create one. Then replace
-      // these constants with your project's URL and anon key.
-      // Brosnan Transport Supabase project configuration
-      // Replace these values if you create a new project.
-      const SUPABASE_URL = 'https://akyxnujtxcjnnihcqvyf.supabase.co';
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFreXhudWp0eGNqbm5paGNxdnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4NzY2MzMsImV4cCI6MjA3MDQ1MjYzM30.cAu446Q0IJRwtbz8-53Ee3Bn5J7pjmVsnnjK0Ox6uLI';
-
-      // Initialize Supabase client. Supabase global object comes from the CDN.
-      const supabaseClient = supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-      /**
-       * JobForm component renders a small form for adding new transport jobs.
-       * It keeps its own internal state for each field and calls onAdd when
-       * the user submits. Fields include start time, duration (hours), truck
-       * number, driver, origin and destination. Feel free to extend this
-       * component with additional fields like client, load or notes.
-       */
-      function JobForm({ onAdd }) {
-        const initialState = {
-          startTime: '',
-          duration: 1,
-          truckNumber: '',
-          driver: '',
-          origin: '',
-          destination: '',
-          // New optional field for detailed job description
-          description: ''
-        };
-        const [job, setJob] = React.useState(initialState);
-
-        function handleChange(e) {
-          const { name, value } = e.target;
-          setJob((prev) => ({ ...prev, [name]: value }));
-        }
-
-        async function handleSubmit(e) {
-          e.preventDefault();
-          // Ensure required fields are filled
-          if (!job.startTime || !job.truckNumber || !job.destination) {
-            alert('Please fill start time, truck number and destination.');
-            return;
-          }
-          await onAdd({
-            ...job,
-            duration: Number(job.duration),
-            created_at: new Date().toISOString()
-          });
-          setJob(initialState);
-        }
-
-        return (
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white shadow p-4 rounded mb-6 grid grid-cols-2 gap-4"
-          >
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="startTime">
-                Start Time
-              </label>
-              <input
-                type="datetime-local"
-                id="startTime"
-                name="startTime"
-                value={job.startTime}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="duration">
-                Duration (hours)
-              </label>
-              <input
-                type="number"
-                id="duration"
-                name="duration"
-                min="0.5"
-                step="0.5"
-                value={job.duration}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="truckNumber">
-                Truck Number
-              </label>
-              <input
-                type="text"
-                id="truckNumber"
-                name="truckNumber"
-                value={job.truckNumber}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="driver">
-                Driver
-              </label>
-              <input
-                type="text"
-                id="driver"
-                name="driver"
-                value={job.driver}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="origin">
-                Origin
-              </label>
-              <input
-                type="text"
-                id="origin"
-                name="origin"
-                value={job.origin}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="destination">
-                Destination
-              </label>
-              <input
-                type="text"
-                id="destination"
-                name="destination"
-                value={job.destination}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-                required
-              />
-            </div>
-            {/* New job description field */}
-            <div>
-              <label className="block text-sm font-semibold mb-1" htmlFor="description">
-                Job Description
-              </label>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                value={job.description}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-              />
-            </div>
-            <div className="col-span-2 flex justify-end">
-              <button
-                type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
-              >
-                Add Job
-              </button>
-            </div>
-          </form>
-        );
-      }
-
-      /**
-       * ScheduleTable component displays the list of jobs in a table. It
-       * highlights conflicts: if two jobs share the same truck and their
-       * schedules overlap, the rows get a red tint. It also supports
-       * deletion of jobs.
-       */
-function ScheduleTable({ jobs, onDelete }) {
-        // Helper: compute overlapping jobs by truck number
-        const conflicts = React.useMemo(() => {
-          const conflictsMap = {};
-          // For each truck, build a list of jobs sorted by start time
-          const byTruck = {};
-          jobs.forEach((job) => {
-            if (!byTruck[job.truckNumber]) byTruck[job.truckNumber] = [];
-            byTruck[job.truckNumber].push(job);
-          });
-          Object.values(byTruck).forEach((jobList) => {
-            // sort by start time
-            jobList.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
-            for (let i = 0; i < jobList.length; i++) {
-              for (let j = i + 1; j < jobList.length; j++) {
-                const jobA = jobList[i];
-                const jobB = jobList[j];
-                const startA = new Date(jobA.startTime).getTime();
-                const endA = startA + jobA.duration * 60 * 60 * 1000;
-                const startB = new Date(jobB.startTime).getTime();
-                const endB = startB + jobB.duration * 60 * 60 * 1000;
-                // Overlap check
-                if (startA < endB && startB < endA) {
-                  conflictsMap[jobA.id] = true;
-                  conflictsMap[jobB.id] = true;
-                }
-              }
-            }
-          });
-          return conflictsMap;
-        }, [jobs]);
-
-        return (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white shadow rounded overflow-hidden">
-              <thead className="bg-gray-200">
-                <tr>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Start Time
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Duration
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Truck
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Driver
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Origin
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Destination
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">
-                    Description
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-semibold">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {jobs.map((job) => {
-                  const isConflict = conflicts[job.id];
-                  return (
-                    <tr
-                      key={job.id}
-                      className={
-                        isConflict
-                          ? 'bg-red-100 border-b last:border-b-0'
-                          : 'border-b last:border-b-0'
-                      }
-                      
-                    >
-                      <td className="px-4 py-2 text-sm">
-                        {new Date(job.startTime).toLocaleString()}
-                      </td>
-                        <td className="px-4 py-2 text-sm">{job.duration}h</td>
-                      <td className="px-4 py-2 text-sm">{job.truckNumber}</td>
-                      <td className="px-4 py-2 text-sm">{job.driver}</td>
-                      <td className="px-4 py-2 text-sm">{job.origin}</td>
-                      <td className="px-4 py-2 text-sm">{job.destination}</td>
-                      <td className="px-4 py-2 text-sm">{job.description}</td>
-                      <td className="px-4 py-2 text-sm">
-                        <button
-                          onClick={(e) => {
-                            // Prevent row click when deleting
-                            e.stopPropagation();
-                            onDelete(job);
-                          }}
-                          className="text-red-600 hover:underline"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        );
-      }
-
-      /**
-       * Main application component. Handles fetching jobs from Supabase,
-       * inserting new ones and deleting existing ones. It also sets up a
-       * realtime subscription so updates from other users show up instantly.
-       */
-      function App() {
-        const [jobs, setJobs] = React.useState([]);
-        const [loading, setLoading] = React.useState(true);
-        const [filterDate, setFilterDate] = React.useState('');
-        // Selected job state removed
-
-        // Fetch jobs on mount
-        React.useEffect(() => {
-          async function loadJobs() {
-            const { data, error } = await supabaseClient
-              .from('jobs')
-              .select('*');
-            if (!error) {
-              setJobs(data || []);
-            } else {
-              console.error('Error loading jobs:', error);
-            }
-            setLoading(false);
-          }
-          loadJobs();
-        }, []);
-
-        // Set up realtime subscriptions
-        React.useEffect(() => {
-          const channel = supabaseClient
-            .channel('public:jobs')
-            .on(
-              'postgres_changes',
-              { event: '*', schema: 'public', table: 'jobs' },
-              (payload) => {
-                // Reload jobs when something changes
-                supabaseClient
-                  .from('jobs')
-                  .select('*')
-                  .then(({ data }) => setJobs(data || []));
-              }
-            )
-            .subscribe();
-          return () => {
-            supabaseClient.removeChannel(channel);
-          };
-        }, []);
-
-        // Handler to add new job
-        async function handleAdd(job) {
-          const { data, error } = await supabaseClient
-            .from('jobs')
-            .insert(job)
-            .select();
-          if (error) {
-            console.error('Error inserting job:', error);
-          }
-        }
-
-        // Handler to delete a job
-        async function handleDelete(job) {
-          const confirmDelete = confirm(
-            `Delete job for truck ${job.truckNumber} at ${job.startTime}?`
+          // Initialize Supabase client. Supabase global object comes from the CDN.
+          const supabaseClient = supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
           );
-          if (!confirmDelete) return;
-          const { error } = await supabaseClient
-            .from('jobs')
-            .delete()
-            .eq('id', job.id);
-          if (error) {
-            console.error('Error deleting job:', error);
+
+          /**
+           * JobForm component renders a small form for adding new transport jobs.
+           * It keeps its own internal state for each field and calls onAdd when
+           * the user submits. Fields include start time, duration (hours), truck
+           * number, driver, origin and destination. Feel free to extend this
+           * component with additional fields like client, load or notes.
+           */
+          function JobForm({ onAdd }) {
+            const initialState = {
+              startTime: '',
+              duration: 1,
+              truckNumber: '',
+              driver: '',
+              origin: '',
+              destination: '',
+              // New optional field for detailed job description
+              description: ''
+            };
+            const [job, setJob] = React.useState(initialState);
+
+            function handleChange(e) {
+              const { name, value } = e.target;
+              setJob((prev) => ({ ...prev, [name]: value }));
+            }
+
+            async function handleSubmit(e) {
+              e.preventDefault();
+              // Ensure required fields are filled
+              if (!job.startTime || !job.truckNumber || !job.destination) {
+                alert('Please fill start time, truck number and destination.');
+                return;
+              }
+              await onAdd({
+                ...job,
+                duration: Number(job.duration),
+                created_at: new Date().toISOString()
+              });
+              setJob(initialState);
+            }
+
+            return (
+              <form
+                onSubmit={handleSubmit}
+                className="bg-white shadow p-4 rounded mb-6 grid grid-cols-2 gap-4"
+              >
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="startTime">
+                    Start Time
+                  </label>
+                  <input
+                    type="datetime-local"
+                    id="startTime"
+                    name="startTime"
+                    value={job.startTime}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="duration">
+                    Duration (hours)
+                  </label>
+                  <input
+                    type="number"
+                    id="duration"
+                    name="duration"
+                    min="0.5"
+                    step="0.5"
+                    value={job.duration}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="truckNumber">
+                    Truck Number
+                  </label>
+                  <input
+                    type="text"
+                    id="truckNumber"
+                    name="truckNumber"
+                    value={job.truckNumber}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="driver">
+                    Driver
+                  </label>
+                  <input
+                    type="text"
+                    id="driver"
+                    name="driver"
+                    value={job.driver}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="origin">
+                    Origin
+                  </label>
+                  <input
+                    type="text"
+                    id="origin"
+                    name="origin"
+                    value={job.origin}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="destination">
+                    Destination
+                  </label>
+                  <input
+                    type="text"
+                    id="destination"
+                    name="destination"
+                    value={job.destination}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                    required
+                  />
+                </div>
+                {/* New job description field */}
+                <div>
+                  <label className="block text-sm font-semibold mb-1" htmlFor="description">
+                    Job Description
+                  </label>
+                  <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    value={job.description}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                  />
+                </div>
+                <div className="col-span-2 flex justify-end">
+                  <button
+                    type="submit"
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+                  >
+                    Add Job
+                  </button>
+                </div>
+              </form>
+            );
           }
-        }
 
-        // Removed row click handler
+          /**
+           * ScheduleTable component displays the list of jobs in a table. It
+           * highlights conflicts: if two jobs share the same truck and their
+           * schedules overlap, the rows get a red tint. It also supports
+           * deletion of jobs.
+           */
+          function ScheduleTable({ jobs, onDelete }) {
+            // Helper: compute overlapping jobs by truck number
+            const conflicts = React.useMemo(() => {
+              const conflictsMap = {};
+              // For each truck, build a list of jobs sorted by start time
+              const byTruck = {};
+              jobs.forEach((job) => {
+                if (!byTruck[job.truckNumber]) byTruck[job.truckNumber] = [];
+                byTruck[job.truckNumber].push(job);
+              });
+              Object.values(byTruck).forEach((jobList) => {
+                // sort by start time
+                jobList.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+                for (let i = 0; i < jobList.length; i++) {
+                  for (let j = i + 1; j < jobList.length; j++) {
+                    const jobA = jobList[i];
+                    const jobB = jobList[j];
+                    const startA = new Date(jobA.startTime).getTime();
+                    const endA = startA + jobA.duration * 60 * 60 * 1000;
+                    const startB = new Date(jobB.startTime).getTime();
+                    const endB = startB + jobB.duration * 60 * 60 * 1000;
+                    // Overlap check
+                    if (startA < endB && startB < endA) {
+                      conflictsMap[jobA.id] = true;
+                      conflictsMap[jobB.id] = true;
+                    }
+                  }
+                }
+              });
+              return conflictsMap;
+            }, [jobs]);
 
-        // Filter jobs by date. If filterDate is empty, show all.
-        const displayedJobs = React.useMemo(() => {
-          if (!filterDate) return jobs;
-          return jobs.filter((job) => {
-            const datePart = new Date(job.startTime)
-              .toISOString()
-              .split('T')[0];
-            return datePart === filterDate;
-          });
-        }, [jobs, filterDate]);
+            return (
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white shadow rounded overflow-hidden">
+                  <thead className="bg-gray-200">
+                    <tr>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Start Time
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Duration
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Truck
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Driver
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Origin
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Destination
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">
+                        Description
+                      </th>
+                      <th className="px-4 py-2 text-left text-sm font-semibold">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {jobs.map((job) => {
+                      const isConflict = conflicts[job.id];
+                      return (
+                        <tr
+                          key={job.id}
+                          className={
+                            isConflict
+                              ? 'bg-red-100 border-b last:border-b-0'
+                              : 'border-b last:border-b-0'
+                          }
+                        >
+                          <td className="px-4 py-2 text-sm">
+                            {new Date(job.startTime).toLocaleString()}
+                          </td>
+                            <td className="px-4 py-2 text-sm">{job.duration}h</td>
+                          <td className="px-4 py-2 text-sm">{job.truckNumber}</td>
+                          <td className="px-4 py-2 text-sm">{job.driver}</td>
+                          <td className="px-4 py-2 text-sm">{job.origin}</td>
+                          <td className="px-4 py-2 text-sm">{job.destination}</td>
+                          <td className="px-4 py-2 text-sm">{job.description}</td>
+                          <td className="px-4 py-2 text-sm">
+                            <button
+                              onClick={() => onDelete(job)}
+                              className="text-red-600 hover:underline"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
 
-        return (
-          <div className="space-y-6">
-            <JobForm onAdd={handleAdd} />
-            <div className="flex items-center mb-4">
-              <label className="mr-2 font-semibold text-sm" htmlFor="filterDate">
-                Filter by Date:
-              </label>
-              <input
-                type="date"
-                id="filterDate"
-                value={filterDate}
-                onChange={(e) => setFilterDate(e.target.value)}
-                className="border rounded p-2"
-              />
-              {filterDate && (
-                <button
-                  onClick={() => setFilterDate('')}
-                  className="ml-2 text-sm text-blue-600 hover:underline"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <>
-                <ScheduleTable
-                  jobs={displayedJobs}
-                  onDelete={handleDelete}
-                />
-                {/* removed selected job details */}
-              </>
-            )}
-          </div>
-        );
-      }
+          /**
+           * Main application component. Handles fetching jobs from Supabase,
+           * inserting new ones and deleting existing ones. It also sets up a
+           * realtime subscription so updates from other users show up instantly.
+           */
+          function App() {
+            const [jobs, setJobs] = React.useState([]);
+            const [loading, setLoading] = React.useState(true);
+            const [filterDate, setFilterDate] = React.useState('');
 
-      // Mount the application to the DOM
-      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-    </script>
-  </body>
-</html>
+            // Fetch jobs on mount
+            React.useEffect(() => {
+              async function loadJobs() {
+                const { data, error } = await supabaseClient
+                  .from('jobs')
+                  .select('*');
+                if (!error) {
+                  setJobs(data || []);
+                } else {
+                  console.error('Error loading jobs:', error);
+                }
+                setLoading(false);
+              }
+              loadJobs();
+            }, []);
+
+            // Set up realtime subscriptions
+            React.useEffect(() => {
+              const channel = supabaseClient
+                .channel('public:jobs')
+                .on(
+                  'postgres_changes',
+                  { event: '*', schema: 'public', table: 'jobs' },
+                  (payload) => {
+                    // Reload jobs when something changes
+                    supabaseClient
+                      .from('jobs')
+                      .select('*')
+                      .then(({ data }) => setJobs(data || []));
+                  }
+                )
+                .subscribe();
+              return () => {
+                supabaseClient.removeChannel(channel);
+              };
+            }, []);
+
+            // Handler to add new job
+            async function handleAdd(job) {
+              const { data, error } = await supabaseClient
+                .from('jobs')
+                .insert(job)
+                .select();
+              if (error) {
+                console.error('Error inserting job:', error);
+              }
+            }
+
+            // Handler to delete a job
+            async function handleDelete(job) {
+              const confirmDelete = confirm(
+                `Delete job for truck ${job.truckNumber} at ${job.startTime}?`
+              );
+              if (!confirmDelete) return;
+              const { error } = await supabaseClient
+                .from('jobs')
+                .delete()
+                .eq('id', job.id);
+              if (error) {
+                console.error('Error deleting job:', error);
+              }
+            }
+
+            // Filter jobs by date. If filterDate is empty, show all.
+            const displayedJobs = React.useMemo(() => {
+              if (!filterDate) return jobs;
+              return jobs.filter((job) => {
+                const datePart = new Date(job.startTime)
+                  .toISOString()
+                  .split('T')[0];
+                return datePart === filterDate;
+              });
+            }, [jobs, filterDate]);
+
+            return (
+              <div className="space-y-6">
+                <JobForm onAdd={handleAdd} />
+                <div className="flex items-center mb-4">
+                  <label className="mr-2 font-semibold text-sm" htmlFor="filterDate">
+                    Filter by Date:
+                  </label>
+                  <input
+                    type="date"
+                    id="filterDate"
+                    value={filterDate}
+                    onChange={(e) => setFilterDate(e.target.value)}
+                    className="border rounded p-2"
+                  />
+                  {filterDate && (
+                    <button
+                      onClick={() => setFilterDate('')}
+                      className="ml-2 text-sm text-blue-600 hover:underline"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <ScheduleTable jobs={displayedJobs} onDelete={handleDelete} />
+                )}
+              </div>
+            );
+          }
+
+          // Mount the application to the DOM
+          ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        </script>
+      </body>
+    </html>
