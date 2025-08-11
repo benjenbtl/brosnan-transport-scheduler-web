@@ -65,7 +65,9 @@
           truckNumber: '',
           driver: '',
           origin: '',
-          destination: ''
+          destination: '',
+          // New optional field for detailed job description
+          description: ''
         };
         const [job, setJob] = React.useState(initialState);
 
@@ -177,6 +179,20 @@
                 required
               />
             </div>
+            {/* New job description field */}
+            <div>
+              <label className="block text-sm font-semibold mb-1" htmlFor="description">
+                Job Description
+              </label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                value={job.description}
+                onChange={handleChange}
+                className="w-full border rounded p-2"
+              />
+            </div>
             <div className="col-span-2 flex justify-end">
               <button
                 type="submit"
@@ -250,6 +266,9 @@
                   <th className="px-4 py-2 text-left text-sm font-semibold">
                     Destination
                   </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold">
+                    Description
+                  </th>
                   <th className="px-4 py-2 text-left text-sm font-semibold">Actions</th>
                 </tr>
               </thead>
@@ -273,6 +292,7 @@
                       <td className="px-4 py-2 text-sm">{job.driver}</td>
                       <td className="px-4 py-2 text-sm">{job.origin}</td>
                       <td className="px-4 py-2 text-sm">{job.destination}</td>
+                      <td className="px-4 py-2 text-sm">{job.description}</td>
                       <td className="px-4 py-2 text-sm">
                         <button
                           onClick={() => onDelete(job)}
